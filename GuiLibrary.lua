@@ -147,7 +147,9 @@ function GuiLibrary:ToggleWindow()
 	end
 end
 
-function GuiLibrary:CreateWindow(kavName, themeList)
+function GuiLibrary:CreateWindow(argstable)
+	local kavName = argstable["Name"]
+	local themeList = argstable["Theme"]
 	if not themeList then
 		themeList = themes
 	end
