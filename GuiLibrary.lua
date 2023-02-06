@@ -71,7 +71,7 @@ local themeStyles = {
 		ElementColor = Color3.fromRGB(224, 224, 224)
 	},
 	BloodTheme = {
-		SchemeColor = Color3.fromRGB(168, 0, 0),
+		SchemeColor = Color3.fromRGB(227, 0, 0),
 		Background = Color3.fromRGB(10, 10, 10),
 		Header = Color3.fromRGB(5, 5, 5),
 		TextColor = Color3.fromRGB(255,255,255),
@@ -575,12 +575,12 @@ function GuiLibrary:CreateWindow(argstable)
 			updateSectionFrame()
 			UpdateSize()
 			local Elements = {}
-			function Elements.NewButton(bname,tipINf, callback)
+			function Elements.NewButton(bname,tipINf, callback, argstable)
+				local bname = argstable["Name"]
+				local tipINf = argstable["Info"]
+				local callback = argstable["Function"]
 				showLogo = showLogo or true
 				local ButtonFunction = {}
-				tipINf = tipINf or "Tip: Clicking this nothing will happen!"
-				bname = bname or "Click Me!"
-				callback = callback or function() end
 
 				local buttonElement = Instance.new("TextButton")
 				local UICorner = Instance.new("UICorner")
@@ -776,10 +776,10 @@ function GuiLibrary:CreateWindow(argstable)
 				return ButtonFunction
 			end
 
-			function Elements.NewTextBox(tname, tTip, callback)
-				tname = tname or "Textbox"
-				tTip = tTip or "Gets a value of Textbox"
-				callback = callback or function() end
+			function Elements.NewTextBox(argstable)
+				local tname = argstable["Name"]
+				local tTip = argstable["Info"]
+				local callback = argstable["Function"]
 				local textboxElement = Instance.new("TextButton")
 				local UICorner = Instance.new("UICorner")
 				local viewInfo = Instance.new("ImageButton")
@@ -972,11 +972,11 @@ function GuiLibrary:CreateWindow(argstable)
 				end)()
 			end 
 
-			function Elements.NewToggle(tname, nTip, callback)
+			function Elements.NewToggle(argstable)
+				local tname = argstable["Name"]
+				local nTip = argstable["Info"]
+				local callback = argstable["Function"]
 				local TogFunction = {}
-				tname = tname or "Toggle"
-				nTip = nTip or "Prints Current Toggle State"
-				callback = callback or function() end
 				local toggled = false
 				table.insert(SettingsT, tname)
 
@@ -1221,13 +1221,13 @@ function GuiLibrary:CreateWindow(argstable)
 				return TogFunction
 			end
 
-			function Elements.NewSlider(slidInf, slidTip, minvalue, maxvalue, callback)
-				slidInf = slidInf or "Slider"
-				slidTip = slidTip or "Slider tip here"
-				minvalue = minvalue or 16
-				maxvalue = maxvalue or 500
+			function Elements.NewSlider(argstable)
+				local slidInf = argstable["Name"]
+				local slidTip = argstable["Info"]
+				local minvalue = argstable["Min"]
+				local maxvalue = argstable["Max"]
+				local callback = argstable["Function"]
 				startVal = startVal or 0
-				callback = callback or function() end
 
 				local sliderElement = Instance.new("TextButton")
 				local UICorner = Instance.new("UICorner")
@@ -1465,12 +1465,12 @@ function GuiLibrary:CreateWindow(argstable)
 				end)        
 			end
 
-			function Elements.NewDropdown(dropname, dropinf, list, callback)
+			function Elements.NewDropdown(argstable)
+				local dropname = argstable["Name"]
+				local dropinf = argstable["Info"]
+				local list = argstable["List"]
+				local callback = argstable["Function"]
 				local DropFunction = {}
-				dropname = dropname or "Dropdown"
-				list = list or {}
-				dropinf = dropinf or "Dropdown info"
-				callback = callback or function() end   
 
 				local opened = false
 				local DropYSize = 33
@@ -1913,10 +1913,11 @@ function GuiLibrary:CreateWindow(argstable)
 				end
 				return DropFunction
 			end
-			function Elements.NewKeybind(keytext, keyinf, first, callback)
-				keytext = keytext or "KeybindText"
-				keyinf = keyinf or "KebindInfo"
-				callback = callback or function() end
+			function Elements.NewKeybind(keytext, keyinf, first, callback, argstable)
+				local keytext = argstable["Name"]
+				local keyinf = argstable["Info"]
+				local first = argstable["KeyBind"]
+				local callback = argstable["Function"]
 				local oldKey = first.Name
 				local keybindElement = Instance.new("TextButton")
 				local UICorner = Instance.new("UICorner")
@@ -2126,10 +2127,11 @@ function GuiLibrary:CreateWindow(argstable)
 				end)()
 			end
 
-			function Elements.NewColorPicker(colText, colInf, defcolor, callback)
-				colText = colText or "ColorPicker"
-				callback = callback or function() end
-				defcolor = defcolor or Color3.fromRGB(1,1,1)
+			function Elements.NewColorPicker(argstable)
+				local colText = argstable["Name"]
+				local colInf = argstable["Info"]
+				local defcolor = argstable["Default"]
+				local callback = argstable["Function"]
 				local h, s, v = Color3.toHSV(defcolor)
 				local ms = game.Players.LocalPlayer:GetMouse()
 				local colorOpened = false
@@ -2594,7 +2596,7 @@ function GuiLibrary:CreateWindow(argstable)
 				setcolor({h,s,v})
 			end
 
-			function Elements.NewLabel(title)
+			function Elements.NewLabel(argstable)
 				local labelFunctions = {}
 				local label = Instance.new("TextLabel")
 				local UICorner = Instance.new("UICorner")
@@ -2603,7 +2605,7 @@ function GuiLibrary:CreateWindow(argstable)
 				label.BackgroundColor3 = themeList.SchemeColor
 				label.BorderSizePixel = 0
 				label.ClipsDescendants = true
-				label.Text = title
+				label.Text = argstable["Text"]
 				label.Size = UDim2.new(0, 352, 0, 33)
 				label.Font = Enum.Font.Gotham
 				label.Text = "  "..title
