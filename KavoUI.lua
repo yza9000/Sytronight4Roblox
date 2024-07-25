@@ -12,7 +12,7 @@ function GuiLibrary:DraggingEnabled(frame, parent)
 	parent = parent or frame
 
 	-- stolen from wally or kiriot, kek
-	local dragging = false
+	local dragging = true
 	local dragInput, mousePos, framePos
 
 	frame.InputBegan:Connect(function(input)
@@ -126,7 +126,7 @@ local SettingsT = {
 
 }
 
-local Name = "GuiLibraryConfig.JSON"
+local Name = "Impact.JSON"
 
 pcall(function()
 
